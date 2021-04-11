@@ -1,4 +1,8 @@
-﻿namespace NetCoreLibrary.Core.Domain
+﻿using NetCoreLibrary.Core.Enums;
+using System;
+using System.Collections.Generic;
+
+namespace NetCoreLibrary.Core.Domain
 {
     public class Customer
     {
@@ -6,5 +10,13 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public int Age { get; set; }
+        public DateTime? BirthDay { get; set; }
+
+        public Gender Gender { get; set; }
+
+        /// <summary>
+        /// Customer.Addresses[0] şeklinde kullanabilmek için IList interface'ini kullanıyorum.
+        /// </summary>
+        public IList<Address> Addresses { get; set; }
     }
 }
