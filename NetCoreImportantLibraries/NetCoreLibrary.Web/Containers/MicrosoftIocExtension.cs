@@ -20,7 +20,7 @@ namespace NetCoreLibrary.Web.Containers
             });
         }
 
-        public static void AddFluentValidationConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static void AddFluentValidationConfiguration(this IServiceCollection services)
         {
             services.AddControllersWithViews(options =>
             {
@@ -53,7 +53,14 @@ namespace NetCoreLibrary.Web.Containers
 
         public static void AddFilterConfiguration(this IServiceCollection services)
         {
+            //FluentValidation filter -> Note: proje içerisnde filter ile işlem yapmadım. Örnek olması adına koydum.
             services.AddScoped(typeof(ValidationFilter));
+        }
+
+        public static void AddAutoMapperConfiguration(this IServiceCollection services)
+        {
+            //Startup class'ının sahip oldugu Assembly'i(yani projeyi) tara ve tüm dönüşüm işlemlerini gerçekleştireyim.
+            services.AddAutoMapper(typeof(Startup));
         }
     }
 }

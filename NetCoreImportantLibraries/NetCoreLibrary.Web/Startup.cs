@@ -21,8 +21,9 @@ namespace NetCoreLibrary.Web
         {
             //Custom Configuration
             services.AddDbConfiguration(Configuration);
-            services.AddFluentValidationConfiguration(Configuration);
+            services.AddFluentValidationConfiguration();
             services.AddFilterConfiguration();
+            services.AddAutoMapperConfiguration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
