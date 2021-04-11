@@ -21,6 +21,7 @@ namespace NetCoreLibrary.Web.Infrastructure.AutoMappers
             CreateMap<Customer, CustomerDTO>()
                 .ForMember(dest => dest.DateOfBirth, src => src.MapFrom(p => p.BirthDay)) //Source ile Destination property isimleri farklı olduğu için automapper'a bildiriyorum.
                 .ForMember(dest => dest.Mail, src => src.MapFrom(p => p.Email))
+                .ForMember(dest => dest.FullName, src => src.MapFrom(p => p.NameAndLastName())) //Metot ile property eşleştirmesi
                 .ReverseMap();
         }
     }
