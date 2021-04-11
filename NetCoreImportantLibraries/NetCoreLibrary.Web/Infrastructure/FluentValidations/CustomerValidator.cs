@@ -9,7 +9,7 @@ namespace NetCoreLibrary.Web.Infrastructure.FluentValidations
     /// </summary>
     public class CustomerValidator : AbstractValidator<Customer>
     {
-        public string NotEmptyMassage { get; set; } = "{PropertyName} alanı boş olamaz.";
+        public string NotEmptyMassage { get; } = "{PropertyName} alanı boş olamaz.";
 
         /// <summary>
         /// InclusiveBetween: 18-60 aralığında olmalı
@@ -30,6 +30,14 @@ namespace NetCoreLibrary.Web.Infrastructure.FluentValidations
                                     {
                                         return DateTime.Now.AddYears(-18) >= birthDay;
                                     }).WithMessage("Yaşınız 18 yaşından büyük olmalıdır.");
+
+
+            /// <summary>
+            /// Customer ile Address class'ı arasında 1-n bir ilişki var. Customer insert sırasında Address class'ının da validate
+            /// edilebilmesi için setValidator ile işlem yapıyorum
+            /// Customer class'ı birden fazla adrese sahip olabileceğinden dolayı RuleForEach kullandık.
+            /// </summary>
+            RuleForEach(p => p.Addresses).SetValidator(new AddressValidator());
         }
     }
 }

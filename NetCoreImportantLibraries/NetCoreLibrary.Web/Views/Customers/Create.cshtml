@@ -32,6 +32,32 @@
                 <input type="date" asp-for="BirthDay" class="form-control" />
                 <span asp-validation-for="BirthDay" class="text-danger"></span>
             </div>
+
+            <!-- Customer'a bağlı adresleri yazmak için -->
+            <hr />
+            <h3>Adresler</h3>
+
+            @for (int index = 1; index <= 2; index++)
+            {
+                <h5>Adres - @index</h5>
+
+                <div class="form-group">
+                    <label asp-for="Addresses[index].Content" class="control-label"></label>
+                    <input asp-for="Addresses[index].Content" class="form-control" />
+                    <span asp-validation-for="Addresses[index].Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Addresses[index].Province" class="control-label"></label>
+                    <input asp-for="Addresses[index].Province" class="form-control" />
+                    <span asp-validation-for="Addresses[index].Province" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Addresses[index].PostCode" class="control-label"></label>
+                    <input asp-for="Addresses[index].PostCode" class="form-control" />
+                    <span asp-validation-for="Addresses[index].PostCode" class="text-danger"></span>
+                </div>
+            }
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

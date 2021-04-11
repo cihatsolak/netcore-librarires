@@ -2,7 +2,7 @@
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreLibrary.Core.Domain;
-using NetCoreLibrary.Data;
+using System.Linq;
 
 namespace NetCoreLibrary.Web.Controllers
 {
@@ -11,15 +11,14 @@ namespace NetCoreLibrary.Web.Controllers
     /// </summary>
     public class CustomersController : Controller
     {
-        private readonly AppDbContext _appDbContext;
-
         //Custom olarak validate() metotunu kullanmak istediğimiz DI olarak ekliyoruz.
         private readonly IValidator<Customer> _customerValidator;
+        private readonly IValidator<Address> _addressValidator;
 
-        public CustomersController(AppDbContext appDbContext, IValidator<Customer> customerValidator)
+        public CustomersController(IValidator<Customer> customerValidator, IValidator<Address> addressValidator)
         {
-            _appDbContext = appDbContext;
             _customerValidator = customerValidator;
+            _addressValidator = addressValidator;
         }
 
         [HttpGet]
@@ -27,7 +26,7 @@ namespace NetCoreLibrary.Web.Controllers
         {
             return View();
         }
-  
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Customer customer)
@@ -36,10 +35,28 @@ namespace NetCoreLibrary.Web.Controllers
             if (!ModelState.IsValid)
                 return View(customer);
 
-            //ModelState i kullanmayıp, Validate() metotu ile doğrulama yapmak.
+            #region ModelState'i kullanmasaydım?
+            //ModelState i kullanmayıp, Validate() metotu ile customerın doğrulamasını yapmak.
             ValidationResult validationResult = _customerValidator.Validate(customer);
             if (!validationResult.IsValid)
                 return View(customer);
+
+            //ModelState i kullanmayıp, Validate() metotu ile adreslerin doğrulamasını yapmak.
+            bool isValid = true;
+            customer.Addresses.ToList().ForEach(address =>
+            {
+                ValidationResult validationResult = _addressValidator.Validate(address);
+                if (!validationResult.IsValid)
+                {
+                    isValid = false;
+                    return;
+                }
+            });
+
+            if (!isValid)
+                return View(customer);
+
+            #endregion
 
             return View();
         }
