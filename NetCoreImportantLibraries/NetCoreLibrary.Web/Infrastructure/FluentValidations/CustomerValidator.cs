@@ -31,6 +31,8 @@ namespace NetCoreLibrary.Web.Infrastructure.FluentValidations
                                         return DateTime.Now.AddYears(-18) >= birthDay;
                                     }).WithMessage("Yaşınız 18 yaşından büyük olmalıdır.");
 
+            //Enum'ın içerdiği değer haricinde bir değer gönderilmesin.
+            RuleFor(p => p.Gender).IsInEnum().WithMessage("{PropertyName} alanı Erkek=1, Bayan=2 olmalıdır.");
 
             /// <summary>
             /// Customer ile Address class'ı arasında 1-n bir ilişki var. Customer insert sırasında Address class'ının da validate
