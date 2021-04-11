@@ -21,6 +21,7 @@ namespace NetCoreLibrary.Web.Controllers
             return View();
         }
   
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Customer customer)
         {

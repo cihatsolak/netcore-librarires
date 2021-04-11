@@ -20,6 +20,8 @@ namespace NetCoreLibrary.Web.Containers
         {
             services.AddControllersWithViews().AddFluentValidation(options =>
             {
+                //Startup assemblyine bulunan IValidator interfacesinden miras almış classları servis olarak otomatik ekle
+                //Proje içerisindeki tüm IValidator olan classları birer servis olarak kaydedecektir.
                 options.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
         }
