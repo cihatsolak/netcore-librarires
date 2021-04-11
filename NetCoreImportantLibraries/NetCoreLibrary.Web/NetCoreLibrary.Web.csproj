@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\AutoMappers\" />
+    <Folder Include="Infrastructure\FluentValidations\CustomValidators\" />
     <Folder Include="Middlewares\" />
   </ItemGroup>
 
