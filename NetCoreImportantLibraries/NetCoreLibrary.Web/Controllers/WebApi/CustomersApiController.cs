@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using NetCoreLibrary.Core.Domain;
 using NetCoreLibrary.Core.DTOs;
+using NetCoreLibrary.Core.Enums;
 using NetCoreLibrary.Data;
+using NetCoreLibrary.Web.Infrastructure.AutoMappers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,6 +48,22 @@ namespace NetCoreLibrary.Web.Controllers.WebApi
             var customerDTOs = _mapper.Map<List<CustomerDTO>>(customers);
 
             return Ok(customerDTOs);
+        }
+
+        /// <summary>
+        /// AutoMapper ile ComplexType mapping işlemi.
+        /// Customer içerisindeki CreditCard class'ını CustomerDTO property'lerine map ediyoruz. (İsimlendirme kuralı)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Flattening()
+        {
+            var customer = GenerateFakeCustomer();
+
+            var customerDTO = _mapper.Map<CustomerDTO>(customer);
+            var customerDTO2 = ObjectMapper.Mapper.Map<CustomerDTO>(customer); //Alternatif, Lazy
+
+            return Ok(customerDTO);
         }
     }
 }

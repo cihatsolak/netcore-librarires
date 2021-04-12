@@ -29,5 +29,11 @@ namespace NetCoreLibrary.Core.Domain
         {
             return string.Concat(Name, " ", LastName);
         }
+
+        /// <summary>
+        /// AutoMapper ile complex type mapleme için oluşturuldu.
+        /// CustomerDTO class ının property'lerine maplenecek.
+        /// </summary>
+        public CreditCard CreditCard { get; set; }
     }
 }
