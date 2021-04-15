@@ -17,7 +17,7 @@ namespace NetCoreLibrary.Core.DTOs
         public DateTime? DateOfBirth { get; set; }
 
 
-        #region CreditCard Class Property
+        #region CreditCard Class Property (Flattening)
         //CreditCard -> Class imi, Number -> Class içindeki property ismi
         public string CreditCardNumber { get; set; }
 
@@ -29,6 +29,11 @@ namespace NetCoreLibrary.Core.DTOs
         /// bunu Profile classı içerisinde belirtmeliyim.
         /// </summary>
         public int CVV { get; set; }
+        #endregion
+
+        #region Vehicle Class Property (IncludeMembers)
+        public string Plate { get; set; }
+        public string Color { get; set; }
         #endregion
     }
 }

@@ -37,6 +37,11 @@ namespace NetCoreLibrary.Web.Controllers.WebApi
                 {
                     Number = "2585 2222 0514 9562",
                     ValidityDate = DateTime.Now.AddYears(2)
+                },
+                Vehicle = new Vehicle
+                {
+                    Plate = "34ABC123",
+                    Color = "Beyaz"
                 }
             };
 

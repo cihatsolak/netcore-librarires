@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using NetCoreLibrary.Core.Domain;
 using NetCoreLibrary.Core.DTOs;
-using NetCoreLibrary.Core.Enums;
 using NetCoreLibrary.Data;
 using NetCoreLibrary.Web.Infrastructure.AutoMappers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -56,7 +54,7 @@ namespace NetCoreLibrary.Web.Controllers.WebApi
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Flattening()
+        public IActionResult FlatteningAndIncludeMembers()
         {
             var customer = GenerateFakeCustomer();
 
@@ -64,6 +62,18 @@ namespace NetCoreLibrary.Web.Controllers.WebApi
             var customerDTO2 = ObjectMapper.Mapper.Map<CustomerDTO>(customer); //Alternatif, Lazy
 
             return Ok(customerDTO);
+        }
+
+        /// <summary>
+        /// Bir property'i birden fazla property'e dağıtıyoruz, ya da dağıtık property'i tek bir property'de birleştiriyoruz.
+        /// </summary>
+
+        [HttpPost]
+        public IActionResult Projection([FromBody]EventDateDTO eventDateDTO)
+        {
+            EventDate eventDate = ObjectMapper.Mapper.Map<EventDate>(eventDateDTO);
+
+            return Ok();
         }
     }
 }

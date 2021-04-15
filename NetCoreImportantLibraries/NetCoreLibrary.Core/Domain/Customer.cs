@@ -31,9 +31,14 @@ namespace NetCoreLibrary.Core.Domain
         }
 
         /// <summary>
-        /// AutoMapper ile complex type mapleme için oluşturuldu.
+        /// AutoMapper ile (Flattening) complex type mapleme için oluşturuldu.
         /// CustomerDTO class ının property'lerine maplenecek.
         /// </summary>
         public CreditCard CreditCard { get; set; }
+
+        /// <summary>
+        /// AutoMapper IncludeMembers ile bu class'ı DTO nesnesine mapleyeceğim.
+        /// </summary>
+        public Vehicle Vehicle { get; set; }
     }
 }
