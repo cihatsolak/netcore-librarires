@@ -75,5 +75,14 @@ namespace NetCoreLibrary.Web.Controllers.WebApi
 
             return Ok();
         }
+
+        /// <summary>
+        /// Rate limit kontrolü için
+        /// </summary>
+        [HttpGet]
+        public IActionResult RateLimitControl()
+        {
+            return Ok("No Problem!");
+        }
     }
 }
