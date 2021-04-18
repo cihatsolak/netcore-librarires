@@ -1,4 +1,6 @@
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace NetCoreLibrary.Web
@@ -7,7 +9,14 @@ namespace NetCoreLibrary.Web
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IHost webHost = CreateHostBuilder(args).Build();
+
+            // IpPolicyStore örneðini alýn
+            var ipPolicyStore = webHost.Services.GetRequiredService<IIpPolicyStore>();
+
+            ipPolicyStore.SeedAsync().Wait();
+
+            webHost.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

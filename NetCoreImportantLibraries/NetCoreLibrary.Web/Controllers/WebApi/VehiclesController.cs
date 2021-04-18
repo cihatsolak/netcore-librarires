@@ -12,5 +12,11 @@ namespace NetCoreLibrary.Web.Controllers.WebApi
         {
             return Ok("No Problem!");
         }
+
+        [HttpPut]
+        public IActionResult DeleteVehicle(int id)
+        {
+            return NoContent();
+        }
     }
 }
