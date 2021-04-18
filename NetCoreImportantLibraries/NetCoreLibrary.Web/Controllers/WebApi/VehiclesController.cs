@@ -14,9 +14,17 @@ namespace NetCoreLibrary.Web.Controllers.WebApi
         }
 
         [HttpPut]
-        public IActionResult DeleteVehicle(int id)
+        public IActionResult DeleteVehicle()
         {
             return NoContent();
+        }
+
+        [HttpGet("{id}/{plate}")]
+        public IActionResult GetVehicleById(int id, string plate)
+        {
+            string vehicleDetail = string.Concat(id, " ", plate);
+
+            return Ok(vehicleDetail);
         }
     }
 }
