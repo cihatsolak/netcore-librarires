@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetCoreLibrary.Web.Containers;
+using NetCoreLibrary.Web.Middlewares;
 
 namespace NetCoreLibrary.Web
 {
@@ -31,16 +32,13 @@ namespace NetCoreLibrary.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseIpRateLimiting(); //Kütüphane tarafýndan gelen middleware
 
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+
+            app.CustomUseSmidge(); //CustomMiddleware
 
             app.UseEndpoints(endpoints =>
             {

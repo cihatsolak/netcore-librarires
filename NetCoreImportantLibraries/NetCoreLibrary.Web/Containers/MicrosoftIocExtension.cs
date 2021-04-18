@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NetCoreLibrary.Core.Settings;
 using NetCoreLibrary.Data;
 using NetCoreLibrary.Web.Filters;
 using NetCoreLibrary.Web.Models;
@@ -87,7 +86,7 @@ namespace NetCoreLibrary.Web.Containers
 
         public static void AddSmidgeConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSmidge(configuration.GetSection(nameof(SmidgeSettings)));
+            services.AddSmidge(configuration.GetSection("SmidgeSettings"));
         }
     }
 }
