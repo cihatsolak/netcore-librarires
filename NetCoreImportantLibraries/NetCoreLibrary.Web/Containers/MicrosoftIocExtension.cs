@@ -1,4 +1,6 @@
-﻿using FluentValidation.AspNetCore;
+﻿using AspNetCoreRateLimit;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -61,6 +63,24 @@ namespace NetCoreLibrary.Web.Containers
         {
             //Startup class'ının sahip oldugu Assembly'i(yani projeyi) tara ve tüm dönüşüm işlemlerini gerçekleştireyim.
             services.AddAutoMapper(typeof(Startup));
+        }
+
+        public static void AddIPRateLimitConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddMemoryCache(); //Gelen requestlerin sayısını memory'de tutacağım.
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); //Gelen request'in header'ındaki verileri okumak için
+
+            //Buradaki class'lar nuget paket aracılığıyla kurduğumuz paket içerisinden gelmekte.
+            services.Configure<IpRateLimitOptions>(configuration.GetSection(nameof(IpRateLimitOptions)));
+            services.Configure<IpRateLimitPolicies>(configuration.GetSection(nameof(IpRateLimitPolicies)));
+
+            services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>(); //(Private Cache)
+          //services.AddSingleton<IIpPolicyStore, DistributedCacheIpPolicyStore>(); //Redis vb (Distributed Cache).
+            
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>(); //(Private Cache)
+         // services.AddSingleton<IRateLimitCounterStore, DistributedCacheRateLimitCounterStore>(); //Redis vb (Distributed Cache).
         }
     }
 }
