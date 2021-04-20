@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/NetCoreImportantLibraries/NetCoreLibrary.Web/App_Data/smidge/Cache/PROBOOK/1

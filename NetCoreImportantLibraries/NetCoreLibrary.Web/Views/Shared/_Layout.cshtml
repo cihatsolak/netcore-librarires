@@ -41,9 +41,15 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script src="my-js-bundle"></script>
    
+    <environment names="Development">
+        <script src="my-js-bundle" debug="true"></script>
+    </environment>
+    
+    <environment names="Production">
+        <script src="my-js-bundle"></script>
+    </environment>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
