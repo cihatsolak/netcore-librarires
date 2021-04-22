@@ -4,8 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - NetCoreLibrary.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
+    <environment names="Development">
+        <link rel="stylesheet" href="my-css-bundle" debug="true"/>
+    </environment>
+
+    <environment names="Staging, Production">
+        <link rel="stylesheet" href="my-css-bundle" />
+    </environment>
+
 </head>
 <body>
     <header>
@@ -42,7 +49,15 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+   
+    <environment names="Development">
+        <script src="my-js-bundle" debug="true"></script>
+    </environment>
+    
+    <environment names="Staging, Production">
+        <script src="my-js-bundle"></script>
+    </environment>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

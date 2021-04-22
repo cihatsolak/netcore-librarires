@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetCoreLibrary.Data;
 using NetCoreLibrary.Web.Filters;
 using NetCoreLibrary.Web.Models;
+using Smidge;
 using System.Linq;
 
 namespace NetCoreLibrary.Web.Containers
@@ -77,10 +78,15 @@ namespace NetCoreLibrary.Web.Containers
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 
             services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>(); //(Private Cache)
-          //services.AddSingleton<IIpPolicyStore, DistributedCacheIpPolicyStore>(); //Redis vb (Distributed Cache).
-            
+                                                                               //services.AddSingleton<IIpPolicyStore, DistributedCacheIpPolicyStore>(); //Redis vb (Distributed Cache).
+
             services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>(); //(Private Cache)
-         // services.AddSingleton<IRateLimitCounterStore, DistributedCacheRateLimitCounterStore>(); //Redis vb (Distributed Cache).
+                                                                                               // services.AddSingleton<IRateLimitCounterStore, DistributedCacheRateLimitCounterStore>(); //Redis vb (Distributed Cache).
+        }
+
+        public static void AddSmidgeConfiguration(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSmidge(configuration.GetSection("SmidgeSettings"));
         }
     }
 }
