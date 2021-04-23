@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hangfire.Server.Services.Emails;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreLibrary.Core.Settings;
@@ -16,6 +17,8 @@ namespace Hangfire.Server.Containers
             });
 
             services.AddControllers();
+
+            services.AddScoped<IEmailSender, EmailSender>();
 
             services.Configure<SendGridSettings>(configuration.GetSection(nameof(SendGridSettings)));
         }
