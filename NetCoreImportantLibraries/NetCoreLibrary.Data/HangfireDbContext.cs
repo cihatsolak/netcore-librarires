@@ -5,7 +5,7 @@ namespace NetCoreLibrary.Data
 {
     public class HangfireDbContext : DbContext
     {
-        public HangfireDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public HangfireDbContext(DbContextOptions<HangfireDbContext> options) : base(options)
         {
         }
 
@@ -13,7 +13,7 @@ namespace NetCoreLibrary.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            modelBuilder.Entity<Log>().HasKey(p => p.Id);
         }
     }
 }
