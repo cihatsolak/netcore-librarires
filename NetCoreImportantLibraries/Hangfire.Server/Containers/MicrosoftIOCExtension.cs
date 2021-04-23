@@ -1,4 +1,5 @@
 ﻿using Hangfire.Server.Services.Emails;
+using Hangfire.Server.Services.Logs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ namespace Hangfire.Server.Containers
     {
         public static void CustomConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<HangfireDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
             });
@@ -19,6 +20,7 @@ namespace Hangfire.Server.Containers
             services.AddControllers();
 
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<ILogService, LogManager>();
 
             services.Configure<SendGridSettings>(configuration.GetSection(nameof(SendGridSettings)));
         }

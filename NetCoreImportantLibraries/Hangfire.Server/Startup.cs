@@ -1,5 +1,6 @@
 using Hangfire.Server.Containers;
 using Hangfire.Server.Middlewares;
+using Hangfire.Server.Shedules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ namespace Hangfire.Server
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHangfireDashboard("/hangfire"); //www.mysite.com/hangfire
+
+            RecurringJobs.DeleteLogJob();
 
             app.CustomConfigure();
         }

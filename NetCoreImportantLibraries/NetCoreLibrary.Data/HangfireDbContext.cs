@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NetCoreLibrary.Core.Domain;
 
 namespace NetCoreLibrary.Data
 {
@@ -6,6 +7,13 @@ namespace NetCoreLibrary.Data
     {
         public HangfireDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+        }
+
+        public DbSet<Log> Logs { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
 }
