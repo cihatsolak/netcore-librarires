@@ -1,5 +1,8 @@
+using Hangfire.Server.Containers;
+using Hangfire.Server.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,24 +17,19 @@ namespace Hangfire.Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.CustomConfigureServices(Configuration);
 
-            services.AddControllers();
+            services.AddHangfire(config => config.UseSqlServerStorage(Configuration.GetConnectionString("Default")));
+            services.AddHangfireServer();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthorization();
+            app.UseHangfireDashboard("/hangfire"); //www.mysite.com/hangfire
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.CustomConfigure();
         }
     }
 }
