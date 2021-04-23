@@ -3,11 +3,13 @@ using Hangfire.Server.Filters;
 using Hangfire.Server.Middlewares;
 using Hangfire.Server.Shedules;
 using Hangfire.SqlServer;
+using HangfireBasicAuthenticationFilter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCoreLibrary.Core.Settings;
 using System;
 
 namespace Hangfire.Server
@@ -58,12 +60,17 @@ namespace Hangfire.Server
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var hangfireSettings = Configuration.GetSection(nameof(HangfireSettings)).Get<HangfireSettings>();
+
             //www.mysite.com/hangfire
             app.UseHangfireDashboard("/hangfire", new DashboardOptions
             {
                 DashboardTitle = "Cihat SOLAK Hangfire Dashboard", //Dashboard ekranýndaki baþlýk alaný.
                 AppPath = "https://github.com/cihatsolak", //Dashboard üzerindeki "back to site" butonu,
-                Authorization = new[] { new HangfireDashboardAuthorizationFilter() } //Güvenlik için authorization iþlemleri
+                Authorization = new[] { new HangfireCustomBasicAuthenticationFilter{
+                    User = hangfireSettings.UserName,
+                    Pass = hangfireSettings.Password
+                } } //Güvenlik için authorization iþlemleri
             });
 
             app.UseHangfireServer(new BackgroundJobServerOptions
