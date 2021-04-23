@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>44423469-7338-4c1b-8b78-da70451b855c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.22" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.22" />
+    <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="5.0.0" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.22" />
+    <PackageReference Include="SendGrid" Version="9.23.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreLibrary.Data\NetCoreLibrary.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Managers\FireAndForgotJobs\" />
+    <Folder Include="Managers\RecurringJobs\" />
+  </ItemGroup>
+
+</Project>
