@@ -3,7 +3,7 @@
 namespace Hangfire.Server.Shedules
 {
     /// <summary>
-    /// Bir kere ve hemen çalışan job tipidir. İş tanımlıdır ve ardından bir kere tetiklenir.
+    /// Bir kez ve anında çalışan job tipidir. İş tanımlıdır ve ardından bir kere tetiklenir.
     /// Örnek Senayo : Bilgi maili gönderimi
     /// Kullanım: BackgroundJob.Enqueue
     /// </summary>
@@ -16,7 +16,7 @@ namespace Hangfire.Server.Shedules
         [AutomaticRetry(Attempts = 3)]
         public static void EmailSendToUserJob(string userId, string message)
         {
-            BackgroundJob.Enqueue<IEmailSender>(src => src.SenderAsync(userId, message));
+            BackgroundJob.Enqueue<IEmailSender>(emailSender => emailSender.SenderAsync(userId, message));
         }
     }
 }

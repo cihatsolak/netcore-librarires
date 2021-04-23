@@ -8,6 +8,13 @@ namespace Hangfire.Server.Controllers
     public class UsersController : ControllerBase
     {
         [HttpPost]
+        public IActionResult SigIn()
+        {
+            DelayedJobs.EmailSendToUserJobAfterCertainTime(userId: "123", message: "Hoşgeldin", scheduleTime: 15);
+            return Ok();
+        }
+
+        [HttpPost]
         public IActionResult SignUp()
         {
             FireAndForgotJobs.EmailSendToUserJob(userId: "123", message: "Hoşgeldin");

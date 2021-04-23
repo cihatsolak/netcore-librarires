@@ -21,6 +21,7 @@ namespace Hangfire.Server
         {
             services.CustomConfigureServices(Configuration);
 
+            //hangfire configure
             services.AddHangfire(config => config.UseSqlServerStorage(Configuration.GetConnectionString("Default")));
             services.AddHangfireServer();
         }
