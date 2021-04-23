@@ -21,7 +21,7 @@ namespace Hangfire.Server.Services.Emails
             var subject = "Site bilgilendirme";
             var to = new EmailAddress("cihatsolak@hotmail.com", "Example User");
             var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>";
+            var htmlContent = $"<strong>and easy to do anywhere, even with C# - {message}</strong>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             await client.SendEmailAsync(msg);
         }

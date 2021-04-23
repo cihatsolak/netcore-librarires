@@ -15,9 +15,10 @@ namespace Hangfire.Server.Shedules
          * fakat bu metot özelinde Attribute kullanarak sadece bu metota özel hata alırsa 3 kere dene diyorum.
          */
         [AutomaticRetry(Attempts = 3)]
-        public static void EmailSendToUserJobAfterCertainTime(string userId, string message, int scheduleTime = 15)
+        public static string EmailSendToUserJobAfterCertainTime(string userId, string message, int scheduleTime = 15)
         {
-            BackgroundJob.Schedule<IEmailSender>(emailSender => emailSender.SenderAsync(userId, message), TimeSpan.FromSeconds(scheduleTime));
+            string jobId = BackgroundJob.Schedule<IEmailSender>(emailSender => emailSender.SenderAsync(userId, message), TimeSpan.FromSeconds(scheduleTime));
+            return jobId;
         }
     }
 }

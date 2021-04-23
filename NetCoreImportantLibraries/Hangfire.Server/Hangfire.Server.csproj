@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Managers\ContinuationJobs\" />
     <Folder Include="Managers\FireAndForgotJobs\" />
     <Folder Include="Managers\RecurringJobs\" />
   </ItemGroup>

@@ -10,7 +10,9 @@ namespace Hangfire.Server.Controllers
         [HttpPost]
         public IActionResult SigIn()
         {
-            DelayedJobs.EmailSendToUserJobAfterCertainTime(userId: "123", message: "Hoşgeldin", scheduleTime: 15);
+            string jobId = DelayedJobs.EmailSendToUserJobAfterCertainTime(userId: "123", message: "Hoşgeldin - DelayedJobs", scheduleTime: 15);
+
+            ContinuationJobs.ReportDeleteLogStatus(parentId: jobId, message: "Continuation Job");
             return Ok();
         }
 
