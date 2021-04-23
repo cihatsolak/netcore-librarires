@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCoreLibrary.Core.Settings;
 using NetCoreLibrary.Data;
 
 namespace Hangfire.Server.Containers
@@ -15,6 +16,8 @@ namespace Hangfire.Server.Containers
             });
 
             services.AddControllers();
+
+            services.Configure<SendGridSettings>(configuration.GetSection(nameof(SendGridSettings)));
         }
     }
 }
