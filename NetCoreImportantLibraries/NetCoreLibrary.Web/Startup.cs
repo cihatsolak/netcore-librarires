@@ -26,6 +26,8 @@ namespace NetCoreLibrary.Web
             services.AddAutoMapperConfiguration();
             services.AddIPRateLimitConfiguration(Configuration);
             services.AddSmidgeConfiguration(Configuration);
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
         }
 
 
@@ -34,9 +36,9 @@ namespace NetCoreLibrary.Web
             if (env.IsDevelopment()) //Development ortamýndaysam?
             {
                 app.UseDeveloperExceptionPage(); //Hata alýndýðý zaman hata sayfasýný göster
-                
-                //1.Yol
                 app.UseStatusCodePages("text/plain", "Hata durum Kodu: {0}"); //Herhangi bir hata da durum kodu görüntüler
+                app.UseDeveloperExceptionPage(); //Ef ile veritabaný hatasý aldýðýmýzda
+                app.UseMigrationsEndPoint(); //Ef ile veritabaný hatasý aldýðýmýzda
             }
             else //Production, Staging
             {
