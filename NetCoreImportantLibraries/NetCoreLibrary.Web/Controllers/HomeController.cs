@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreLibrary.Data;
-using NetCoreLibrary.Web.Filters.ExceptionHandlers;
+using NetCoreLibrary.Web.Filters;
 using NetCoreLibrary.Web.Models;
 using System;
 using System.Diagnostics;

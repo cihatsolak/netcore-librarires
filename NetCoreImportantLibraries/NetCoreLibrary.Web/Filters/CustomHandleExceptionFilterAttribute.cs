@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-namespace NetCoreLibrary.Web.Filters.ExceptionHandlers
+namespace NetCoreLibrary.Web.Filters
 {
     public class CustomHandleExceptionFilterAttribute : ExceptionFilterAttribute
     {
