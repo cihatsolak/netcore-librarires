@@ -7,11 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreLibrary.Data;
 using NetCoreLibrary.Web.Filters;
+using NetCoreLibrary.Web.Filters.ExceptionHandlers;
 using NetCoreLibrary.Web.Models;
 using Smidge;
 using System.Linq;
 
-namespace NetCoreLibrary.Web.Containers
+namespace NetCoreLibrary.Web.Infrastructure.IOC.Containers
 {
     public static class MicrosoftIocExtension
     {
@@ -28,6 +29,7 @@ namespace NetCoreLibrary.Web.Containers
             services.AddControllersWithViews(options =>
             {
                 //options.Filters.Add(new ValidationFilter()); -> ModelState.IsValid olayını bir filter aracılığı ile gerçekleştirmek istediğimizde kulllanırız.
+                //options.Filters.Add(new CustomHandleExceptionFilterAttribute() { ErrorViewName = "Hata1" }); -> Filter'ı global olarak ele almak istersek
             })
             .AddFluentValidation(options =>
             {
