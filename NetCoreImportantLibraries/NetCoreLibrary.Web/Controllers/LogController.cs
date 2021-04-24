@@ -5,15 +5,24 @@ namespace NetCoreLibrary.Web.Controllers
 {
     public class LogController : Controller
     {
+        /// <summary>
+        /// Spesifik bir cateyory name yok ise
+        /// </summary>
         private readonly ILogger<HomeController> _logger;
 
-        public LogController(ILogger<HomeController> logger)
+        /// <summary>
+        /// Spesifik bir category name varsa
+        /// </summary>
+        private readonly ILoggerFactory _loggerFactory;
+
+        public LogController(ILogger<HomeController> logger, ILoggerFactory loggerFactory)
         {
             _logger = logger;
+            _loggerFactory = loggerFactory;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult SampleLogger()
         {
             _logger.LogTrace("Log trace added.");
             _logger.LogDebug("Log debug added.");
@@ -21,6 +30,15 @@ namespace NetCoreLibrary.Web.Controllers
             _logger.LogWarning("Log warning added.");
 
             _logger.LogCritical("Log criticial added.");
+            return View();
+        }
+
+        public IActionResult SampleLoggerFactory()
+        {
+            var logger = _loggerFactory.CreateLogger("LoggerForHomeController");
+
+            logger.LogInformation("Logger factory with log information");
+
             return View();
         }
     }
