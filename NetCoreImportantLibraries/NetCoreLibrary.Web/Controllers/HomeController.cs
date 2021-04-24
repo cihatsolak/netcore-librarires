@@ -17,14 +17,25 @@ namespace NetCoreLibrary.Web.Controllers
             _appDbContext = appDbContext;
         }
 
-        [CustomHandleExceptionFilter]
+        [CustomHandleExceptionFilter(ErrorViewName = "Hata1")]
         public IActionResult Index()
         {
             if (false) //Unreachable code detected
             {
                 throw new Exception("Örnek Hata");
             }
-            
+
+            return View();
+        }
+
+        [CustomHandleExceptionFilter(ErrorViewName = "Hata2")]
+        public IActionResult Index2()
+        {
+            if (false) //Unreachable code detected
+            {
+                throw new Exception("Örnek Hata");
+            }
+
             return View();
         }
 
@@ -40,7 +51,5 @@ namespace NetCoreLibrary.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        
     }
 }

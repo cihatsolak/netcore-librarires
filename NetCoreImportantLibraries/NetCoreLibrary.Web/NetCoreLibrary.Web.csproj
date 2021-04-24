@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\FluentValidations\CustomValidators\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
 
   <ItemGroup>
