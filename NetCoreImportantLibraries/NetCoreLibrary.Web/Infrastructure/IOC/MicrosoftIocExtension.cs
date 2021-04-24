@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreLibrary.Data;
 using NetCoreLibrary.Web.Filters;
-using NetCoreLibrary.Web.Filters.ExceptionHandlers;
 using NetCoreLibrary.Web.Models;
 using Smidge;
 using System.Linq;
