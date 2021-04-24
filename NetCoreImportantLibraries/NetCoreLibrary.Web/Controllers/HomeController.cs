@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreLibrary.Data;
+using NetCoreLibrary.Web.Filters.ExceptionHandlers;
 using NetCoreLibrary.Web.Models;
 using System;
 using System.Diagnostics;
@@ -16,12 +17,14 @@ namespace NetCoreLibrary.Web.Controllers
             _appDbContext = appDbContext;
         }
 
+        [CustomHandleExceptionFilter]
         public IActionResult Index()
         {
             if (false) //Unreachable code detected
             {
                 throw new Exception("Örnek Hata");
             }
+            
             return View();
         }
 
@@ -37,5 +40,7 @@ namespace NetCoreLibrary.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
     }
 }
