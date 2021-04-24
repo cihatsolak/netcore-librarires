@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NetCoreLibrary.Web.Containers;
+using NetCoreLibrary.Web.Infrastructure.IOC.Containers;
 using NetCoreLibrary.Web.Middlewares;
 
 namespace NetCoreLibrary.Web
@@ -18,7 +18,6 @@ namespace NetCoreLibrary.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbConfiguration(Configuration);
@@ -29,16 +28,31 @@ namespace NetCoreLibrary.Web
             services.AddSmidgeConfiguration(Configuration);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsDevelopment()) //Development ortamýndaysam?
+            {
+                app.UseDeveloperExceptionPage(); //Hata alýndýðý zaman hata sayfasýný göster
+                
+                //1.Yol
+                app.UseStatusCodePages("text/plain", "Hata durum Kodu: {0}"); //Herhangi bir hata da durum kodu görüntüler
+            }
+            else //Production, Staging
+            {
+                app.UseExceptionHandler("/Home/Error"); //Hata sayfasýna yönlendir.
+            }
+
+            app.UseHttpsRedirection(); //Http'den gelen istekleri https'e yönlendir.
+            app.UseHsts(); //Tarayýcýlara https üzerinden istek atmaya ikna et
+
             app.UseIpRateLimiting(); //Kütüphane tarafýndan gelen middleware
 
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
 
-            app.CustomUseSmidge(); //CustomMiddleware
+            app.CustomUseSmidge(); //Custom Smidge Middleware
 
             app.UseEndpoints(endpoints =>
             {

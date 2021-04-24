@@ -11,7 +11,7 @@ using NetCoreLibrary.Web.Models;
 using Smidge;
 using System.Linq;
 
-namespace NetCoreLibrary.Web.Containers
+namespace NetCoreLibrary.Web.Infrastructure.IOC.Containers
 {
     public static class MicrosoftIocExtension
     {
