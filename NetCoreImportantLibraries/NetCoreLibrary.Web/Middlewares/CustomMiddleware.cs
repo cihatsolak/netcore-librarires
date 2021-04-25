@@ -38,7 +38,7 @@ namespace NetCoreLibrary.Web.Middlewares
             app.UseSwagger();
             app.UseSwaggerUI(setupAction =>
             {
-                setupAction.SwaggerEndpoint("/swagger/v1/swagger.json", "Example API");
+                setupAction.SwaggerEndpoint("/swagger/ProductV1/swagger.json", "Example API");
             });
         }
     }

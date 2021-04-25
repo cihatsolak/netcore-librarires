@@ -8,6 +8,8 @@ namespace NetCoreLibrary.Web.Controllers.WebApi
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Produces("application/json")] //Dönüş json tipinde.
+    [Consumes("application/json")] //Request kesinlikle json tipinde olmalı.
     public class BaseApiController : ControllerBase
     {
 

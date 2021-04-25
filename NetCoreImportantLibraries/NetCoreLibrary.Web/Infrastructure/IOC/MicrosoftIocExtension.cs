@@ -98,6 +98,8 @@ namespace NetCoreLibrary.Web.Infrastructure.IOC.Containers
         {
             services.AddSwaggerGen(setupAction =>
             {
+                setupAction.EnableAnnotations(); //Responseları özelleştirebilmek için kullandım.
+
                 setupAction.SwaggerDoc("ProductV1", new OpenApiInfo
                 {
                     Version = "v1.0",
@@ -107,7 +109,7 @@ namespace NetCoreLibrary.Web.Infrastructure.IOC.Containers
                     {
                         Name = "Cihat Solak",
                         Email = "test@email.com",
-                        Url = new Uri("github.com/cihatsolak")
+                        Url = new Uri("https://github.com/cihatsolak")
                     },
                     TermsOfService = new Uri("http://example.com/terms/"),
                     License = new OpenApiLicense
@@ -118,13 +120,12 @@ namespace NetCoreLibrary.Web.Infrastructure.IOC.Containers
                 });
 
                 #region XML dosyasının yolunu swagger'a veriyorum
-                string xmlFileName = string.Concat(Assembly.GetExecutingAssembly().GetName(), ".xml");
+                string xmlFileName = string.Concat(Assembly.GetExecutingAssembly().GetName().Name, ".xml");
                 string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFileName);
                 setupAction.IncludeXmlComments(xmlPath);
                 #endregion
-
+                
             });
-
         }
     }
 }
