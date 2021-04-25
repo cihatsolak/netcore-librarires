@@ -26,6 +26,7 @@ namespace NetCoreLibrary.Web
             services.AddAutoMapperConfiguration();
             services.AddIPRateLimitConfiguration(Configuration);
             services.AddSmidgeConfiguration(Configuration);
+            services.AddSwaggerConfiguration();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
         }
@@ -49,12 +50,14 @@ namespace NetCoreLibrary.Web
             app.UseHsts(); //Tarayýcýlara https üzerinden istek atmaya ikna et
 
             app.UseIpRateLimiting(); //Kütüphane tarafýndan gelen middleware
-
+            
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
 
             app.CustomUseSmidge(); //Custom Smidge Middleware
+
+            app.CustomUseSwagger(); //Custom Swagger Middleware
 
             app.UseEndpoints(endpoints =>
             {

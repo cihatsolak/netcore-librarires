@@ -16,8 +16,8 @@ namespace NetCoreLibrary.Web.Middlewares
                 bundle.CreateJs("my-js-bundle", "~/js/site.js", "~/js/site2.js");
 
                 bundle.CreateCss("my-css-bundle", "~/lib/bootstrap/dist/css/bootstrap.css", "~/css/site.css");
-                
-                
+
+
                 //bundle.CreateJs("my-js-bundle", "~/js/site.js", "~/js/site2.js")
                 ////ForDebug -> HTML tarafta debug="true" olan bundle dosyalarım için geçerli olacak kurallar. (Çok uç bir örnek, development ortamda da bundle etmek için yani var olan davranışı değiştirmek)
                 //.WithEnvironmentOptions(BundleEnvironmentOptions.Create().ForDebug(builder => builder.EnableCompositeProcessing() //debug="true" oldugunda da bundle(birleştir) et.
@@ -30,6 +30,15 @@ namespace NetCoreLibrary.Web.Middlewares
 
                 //eğer aynı klasör içerisinde birden fazla bundle edilmesi gereken dosya varsa, sadece dosya yolunu vermemiz yeterlidir.
                 //bundle.CreateJs("my-js-bundle", "~/js/");
+            });
+        }
+
+        public static void CustomUseSwagger(this IApplicationBuilder app)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction =>
+            {
+                setupAction.SwaggerEndpoint("/swagger/v1/swagger.json", "Example API");
             });
         }
     }

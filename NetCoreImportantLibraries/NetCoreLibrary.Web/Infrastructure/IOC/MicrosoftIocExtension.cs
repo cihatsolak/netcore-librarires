@@ -5,11 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using NetCoreLibrary.Data;
 using NetCoreLibrary.Web.Filters;
 using NetCoreLibrary.Web.Models;
 using Smidge;
+using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace NetCoreLibrary.Web.Infrastructure.IOC.Containers
 {
@@ -88,6 +92,39 @@ namespace NetCoreLibrary.Web.Infrastructure.IOC.Containers
         public static void AddSmidgeConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSmidge(configuration.GetSection("SmidgeSettings"));
+        }
+
+        public static void AddSwaggerConfiguration(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc("ProductV1", new OpenApiInfo
+                {
+                    Version = "v1.0",
+                    Title = "Dökümantasyon Başlığı",
+                    Description = "Api tam olarak ne iş yapıyor?",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Cihat Solak",
+                        Email = "test@email.com",
+                        Url = new Uri("github.com/cihatsolak")
+                    },
+                    TermsOfService = new Uri("http://example.com/terms/"),
+                    License = new OpenApiLicense
+                    {
+                        Name = "Apache 2.0",
+                        Url = new Uri("http://www.apache.org/licenses/LICENSE-2.0.html")
+                    }
+                });
+
+                #region XML dosyasının yolunu swagger'a veriyorum
+                string xmlFileName = string.Concat(Assembly.GetExecutingAssembly().GetName(), ".xml");
+                string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFileName);
+                setupAction.IncludeXmlComments(xmlPath);
+                #endregion
+
+            });
+
         }
     }
 }
