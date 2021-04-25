@@ -46,6 +46,11 @@ namespace NetCoreLibrary.Web
                 app.UseExceptionHandler("/Home/Error"); //Hata sayfasýna yönlendir.
             }
 
+            if (env.IsEnvironment("Alfa")) //Custom environment yazdýgýmýzda
+            {
+
+            }
+
             app.UseHttpsRedirection(); //Http'den gelen istekleri https'e yönlendir.
             app.UseHsts(); //Tarayýcýlara https üzerinden istek atmaya ikna et
 
