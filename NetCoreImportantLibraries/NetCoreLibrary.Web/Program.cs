@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 
 namespace NetCoreLibrary.Web
 {
@@ -22,13 +23,14 @@ namespace NetCoreLibrary.Web
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureLogging(logging =>
-            {
-                //logging.ClearProviders(); -> Default gelen ILogger mekanizmasýný devre dýþý býrakmak için
-            })
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
-            });
+            })
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders(); // Default gelen ILogger mekanizmasýný devre dýþý býrakmak için
+            })
+            .UseNLog(); //add NLog;
     }
 }
