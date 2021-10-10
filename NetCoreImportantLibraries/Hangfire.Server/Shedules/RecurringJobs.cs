@@ -17,7 +17,7 @@ namespace Hangfire.Server.Shedules
         [AutomaticRetry(Attempts = 3)]
         public static void DeleteLogJob()
         {
-            RecurringJob.AddOrUpdate<DeleteLogSheduleJobManager>("Log Silme Görevi", manager => manager.DeleteLogAsync(), "35 15 * * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate<IDeleteLogSheduleJobManager>("Log Silme Görevi", manager => manager.DeleteLogAsync(), "35 15 * * *", TimeZoneInfo.Local);
         }
     }
 }

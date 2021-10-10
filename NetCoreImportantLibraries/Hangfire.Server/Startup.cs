@@ -81,7 +81,8 @@ namespace Hangfire.Server
                  */
 
                 SchedulePollingInterval = TimeSpan.FromMinutes(1), //1 dakikada 1 kez kontrol et ve görevleri sýrala görevleri sýrala.
-                WorkerCount = Environment.ProcessorCount * 5 //Arka planda çalýþacak job sayýsýný ifade eder.
+                WorkerCount = Environment.ProcessorCount * 5, //Arka planda çalýþacak job sayýsýný ifade eder.
+                Queues = new[] { "general" }
             });
 
             GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 7 }); //Global seviyede bir job hata alýrsa 7 kere tekrarlamasýný söyledik.

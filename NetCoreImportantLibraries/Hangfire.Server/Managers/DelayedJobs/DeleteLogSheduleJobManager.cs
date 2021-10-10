@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Hangfire.Server.Managers.DelayedJobs
 {
-    public class DeleteLogSheduleJobManager
+    public class DeleteLogSheduleJobManager : IDeleteLogSheduleJobManager
     {
         private readonly ILogService _logService;
         public DeleteLogSheduleJobManager(ILogService logService)
